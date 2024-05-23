@@ -1,0 +1,48 @@
+schemaVersion: 2.0.0
+
+metadata:
+  name: aws-universal
+  version: 1.0.1
+  displayName: AWS Universal
+  description: Stack with AWS Universal Tooling
+  tags:
+    - aws
+    - al2
+  projectType: aws
+
+components:
+  - name: aws-runtime
+    container:
+      image: public.ecr.aws/aws-mde/universal-image:latest
+      mountSources: true
+      volumeMounts:
+        - name: docker-store
+          path: /var/lib/docker
+  - name: docker-store
+    volume:
+      size: 16Gi
+
+commands:
+  - id: cf-package-repo
+    exec:
+      component:  aws-runtime
+      commandLine: "sudo wget -O /etc/yum.repos.d/cloudfoundry-cli.repo https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo"
+  - id: yum-installs
+    exec:
+      component: aws-runtime
+      commandLine: "sudo yum -y install cf8-cli"
+  - id: dnf-installs
+    exec:
+      component: aws-runtime
+      commandLine: "sudo dnf -y install tmux ansible"
+  - id: pip-installs
+    exec:
+      component: aws-runtime
+      commandLine: "yes | python3 -m pip install ruff"
+
+events:
+  postStart:
+    - cf-package-repo
+    - yum-installs
+    - dnf-installs
+    - pip-installs
