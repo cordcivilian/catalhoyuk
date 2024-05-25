@@ -126,4 +126,4 @@ command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-hea
 nnoremap <leader>g :Git<CR>
 
 autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter,FocusGained * call system('tmux rename-window ' . expand('%:t'))
-autocmd VimLeave * silent call system('tmux rename-window bash')
+autocmd VimLeave * silent call system("tmux rename-window $(echo $SHELL | awk -F '/' '{print $NF}')")
