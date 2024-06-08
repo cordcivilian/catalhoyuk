@@ -83,6 +83,7 @@ call plug#begin()
     Plug 'mbbill/undotree'
     Plug 'tpope/vim-fugitive'
     Plug 'markonm/traces.vim'
+    Plug 'yggdroot/indentline'
 call plug#end()
 
 function! s:on_lsp_buffer_enabled() abort
