@@ -97,6 +97,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gi <plug>(lsp-implementation)
     nmap <buffer> gt <plug>(lsp-type-definition)
     nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> <leader>d <plug>(lsp-document-diagnostics)
     nmap <buffer> K <plug>(lsp-hover)
     nnoremap <buffer> <expr><c-n> lsp#scroll(+4)
     nnoremap <buffer> <expr><c-p> lsp#scroll(-4)
