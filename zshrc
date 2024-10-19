@@ -14,8 +14,10 @@ export CLICOLOR=1
 
 bindkey -e
 
-export PATH="$PATH:$HOME/.local/bin:$HOME/go/bin:$HOME/.stack/programs/aarch64-osx/ghc-9.6.6/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/go/bin"
 
 PS1='%B%F{white}%n@%m%b:%f%F{049}%~%f%F{white}$ %f'
 
 alias ls='ls --color=auto'
+
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env

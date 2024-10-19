@@ -110,7 +110,7 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-let g:ale_linters = {'python': ['ruff']}
+let g:ale_linters = {'python': ['ruff'], 'haskell': ['cabal_ghc', 'cspell', 'ghc_mod', 'hdevtools', 'hie', 'hlint', 'hls', 'stack_build', 'stack_ghc'],}
 let g:ale_fixers = {'python': ['ruff']}
 nmap <silent> [g :ALENext<CR>
 nmap <silent> ]g :ALEPrevious<CR>
