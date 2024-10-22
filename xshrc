@@ -1,0 +1,7 @@
+# ~/.xshrc
+
+[[ ":$PATH:" != *":$HOME/go/bin:"* ]] && PATH="$HOME/go/bin:$PATH"
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && PATH="$HOME/.local/bin:$PATH"
+[[ ":$PATH:" != *":/usr/local/go/bin:"* ]] && PATH="/usr/local/go/bin:$PATH"
+export PATH
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
