@@ -84,6 +84,7 @@ call plug#begin()
     Plug 'tpope/vim-fugitive'
     Plug 'markonm/traces.vim'
     Plug 'yggdroot/indentline'
+    Plug 'github/copilot.vim'
 call plug#end()
 
 function! s:on_lsp_buffer_enabled() abort
