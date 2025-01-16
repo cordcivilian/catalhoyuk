@@ -60,6 +60,11 @@ nnoremap <leader>Y "+Y
 vnoremap <leader>p "+p
 nnoremap <leader>p "+p
 
+augroup Osc52Yank
+    autocmd!
+    autocmd TextYankPost * if len(v:event.regcontents[0]) > 1 || len(v:event.regcontents) > 1 | call system("printf $'\\e]52;c;%s\\a' \"$(cat | base64)\" >> /dev/tty", v:event.regcontents) | endif
+augroup END
+
 nnoremap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 nnoremap <silent> <leader>x <cmd>!chmod +x %<CR>
 
