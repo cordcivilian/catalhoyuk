@@ -1,0 +1,67 @@
+## sudo vim /etc/systemd/system/make-run.service
+## sudo systemctl enable make-run.service
+## sudo systemctl start make-run.service
+
+# Content:
+[Unit]
+Description=Keep Process Running
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/path/to/make-run.sh
+Restart=always
+RestartSec=10
+User=yourusername
+
+[Install]
+WantedBy=multi-user.target
+
+#!/bin/bash
+set -e  # Exit on error
+
+# Log file for debugging
+LOGFILE="/var/log/make-run.log"
+
+# Add logging function
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$LOGFILE"
+}
+
+# Process details
+PROCESS="YourProcessName"
+MAKERUN="/usr/bin/program"
+PIDFILE="/var/run/make-run.pid"
+
+# Check if another instance is running
+if [ -f "$PIDFILE" ]; then
+    pid=$(cat "$PIDFILE")
+    if ps -p "$pid" > /dev/null 2>&1; then
+        log "Script already running with PID $pid"
+        exit 1
+    fi
+fi
+
+# Store current PID
+echo $$ > "$PIDFILE"
+
+# Export display for GUI apps
+export DISPLAY=:0
+
+# Check if process is running
+if ! pgrep -f "$PROCESS" > /dev/null; then
+    log "Process $PROCESS not found, starting..."
+    $MAKERUN &
+    sleep 2
+    if pgrep -f "$PROCESS" > /dev/null; then
+        log "Process started successfully"
+    else
+        log "Failed to start process"
+        exit 1
+    fi
+else
+    log "Process $PROCESS is already running"
+fi
+
+# Cleanup
+rm -f "$PIDFILE"
