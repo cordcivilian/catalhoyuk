@@ -84,7 +84,6 @@ call plug#begin()
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'preservim/nerdtree'
     Plug 'mbbill/undotree'
     Plug 'tpope/vim-fugitive'
     Plug 'markonm/traces.vim'
@@ -121,17 +120,11 @@ let g:ale_fixers = {'python': ['ruff']}
 nmap <silent> [g :ALENext<CR>
 nmap <silent> ]g :ALEPrevious<CR>
 
-let NERDTreeShowLineNumbers = 1
-let g:undotree_SetFocusWhenToggle = 1
-autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-autocmd FileType nerdtree setlocal number
-nnoremap <leader>t :NERDTreeToggle<CR>
-nnoremap <leader>u :UndotreeToggle<CR>
-
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 2, {'options': '--delimiter : --nth 4..'},<bang>0)
 
 nnoremap <leader>g :Git<CR>
+
+autocmd VimEnter * if argc() == 0 | Explore | endif
 
 autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter,FocusGained * call system('tmux rename-window ' . expand('%:t'))
 autocmd VimLeave * silent call system("tmux rename-window $(echo $SHELL | awk -F '/' '{print $NF}')")
