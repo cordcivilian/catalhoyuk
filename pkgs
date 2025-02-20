@@ -1,0 +1,24 @@
+----- base
+ansible
+caddy
+curl
+fzf
+htop
+jq
+nodejs
+python3
+ripgrep
+ruff
+scc
+sqlite
+tmux
+tree
+vim
+wrk
+zsh
+
+----- darwin
+rectangle
+
+----- other
+ghcup

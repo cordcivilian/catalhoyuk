@@ -1,0 +1,9 @@
+call plug#begin()
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+call plug#end()
+
+nnoremap <leader>y <Plug>OSCYankOperator
+vnoremap <leader>y <Plug>OSCYankVisual
+
+nnoremap <silent> <leader>p :set paste<CR>i<C-r>+<Esc>:set nopaste<CR>
+vnoremap <silent> <leader>p c<C-r>+<Esc>
